@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>두 표로 만드는 국회 · 1인 2표제</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="map.css">
+  <script src="districts.js" defer></script><script src="map-data.js" defer></script><script src="map.js" defer></script><script src="model.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+<main class="workspace">
+  <header class="masthead"><span class="brand"><span class="brand-icon" aria-hidden="true">▥</span> 국회 구성 실험실</span><span class="model-tag">전국 254개 선거구 · 300석</span></header>
+  <section class="intro"><div><p class="eyebrow">국회의원 선거 · 1인 2표제</p><h1>두 표로 만드는 <em>국회</em></h1><p class="lead">한 표는 후보에게, 한 표는 정당에게.</p></div><div class="equation" aria-label="지역구 254석과 비례대표 46석을 합해 국회 300석"><span><b>254</b>지역구</span><i>+</i><span><b>46</b>비례대표</span><i>=</i><span class="eq-total"><b>300</b>국회 의석</span></div></section>
+  <section class="voting-area" aria-labelledby="vote-title">
+    <div class="section-top"><div><p class="eyebrow">투표하기</p><h2 id="vote-title">각 투표용지에서 하나씩 골라요.</h2></div><button class="location-button" id="choose-district"><span>내 지역구</span><strong id="district-label"></strong><span aria-hidden="true">↗</span></button></div>
+    <div class="ballot-pair">
+      <section class="ballot candidate-ballot" aria-labelledby="candidate-title"><div class="paper-top"><span class="paper-code">지역구 국회의원 선거</span><span class="one-vote">1표</span></div><h3 id="candidate-title">우리 지역의 <strong>후보</strong></h3><p class="ballot-hint">이 지역에서 가장 많은 표를 얻은 1명</p><div id="candidates" class="choices" role="group" aria-label="지역구 후보 선택"></div><div class="paper-bottom"><span>지역구 의원 <b>254명</b></span><span aria-hidden="true">↓</span></div></section>
+      <div class="pair-plus" aria-hidden="true">+</div>
+      <section class="ballot party-ballot" aria-labelledby="party-title"><div class="paper-top"><span class="paper-code">비례대표 국회의원 선거</span><span class="one-vote">1표</span></div><h3 id="party-title">내가 지지하는 <strong>정당</strong></h3><p class="ballot-hint">전국의 정당 투표를 모아 의석 배분</p><div id="parties" class="choices" role="group" aria-label="정당 선택"></div><div class="paper-bottom"><span>비례대표 의원 <b>46명</b></span><span aria-hidden="true">↓</span></div></section>
+    </div>
+    <div class="vote-actions"><p id="selection-note">후보의 소속 정당과 다른 정당을 골라도 돼요.</p><button class="primary" id="cast" disabled>두 표 투표하기 <span aria-hidden="true">↘</span></button></div>
+    <p id="vote-status" role="status" class="vote-status">아직 투표하지 않았어요.</p>
+  </section>
+  <section class="counting-dock" aria-label="투표 현황과 개표"><div class="voter-counter"><b id="voter-count">0</b><span>명 투표 <small id="voter-detail">직접 0명 · 예시 0명</small></span></div><div class="dock-actions"><button class="secondary" id="fill">나머지 지역 예시 표 채우기</button><button class="primary" id="open-results" disabled>개표하고 국회 구성 보기 <span aria-hidden="true">→</span></button></div></section>
+  <footer><p>제22대 총선(2024) 제도·선거구 기준. 정당·후보·득표는 수업용이며 실제 선거 결과가 아닙니다.</p><div><span>새로고침하면 초기화됩니다.</span><button class="text-button" id="reset">새 선거 시작</button></div></footer>
+</main>
+<dialog id="district-dialog" aria-labelledby="district-title"><div class="dialog-heading"><div><p class="eyebrow">전국 17개 시도 · 254개 지역구</p><h2 id="district-title">어느 지역에서 투표할까요?</h2></div><button class="close" data-close aria-label="지역 선택 닫기">×</button></div><label class="search-label">지역구 검색<input type="search" id="district-search" placeholder="예: 종로, 수원, 제주" autocomplete="off"></label><div id="province-list" class="province-list" role="group" aria-label="시도 선택"></div><div id="district-list" class="district-list" role="group" aria-label="선거구 선택"></div><p class="muted" id="district-count"></p></dialog>
+<dialog id="results-dialog" aria-labelledby="result-title"><div class="dialog-heading"><div><p class="eyebrow">두 표가 모여 하나의 국회로</p><h2 id="result-title">투표 결과를 살펴봐요.</h2></div><button class="close" data-close aria-label="개표 결과 닫기">×</button></div><nav class="result-steps" aria-label="개표 과정"><button data-stage="local" aria-pressed="true"><b>1</b> 지역구 254석</button><span aria-hidden="true">→</span><button data-stage="party" aria-pressed="false"><b>2</b> 비례대표 46석</button><span aria-hidden="true">→</span><button data-stage="assembly" aria-pressed="false"><b>3</b> 국회 300석</button></nav><div id="result-content"></div><div class="result-actions"><p id="result-caption"></p><button class="primary" id="next-stage">비례대표 보기 →</button></div></dialog>
+</body></html>
